@@ -1,5 +1,5 @@
 """
-tp 5
+tp 6
 Par Yul Kim
 Groupe:405
 roche papier sciseaux

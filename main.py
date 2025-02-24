@@ -79,23 +79,23 @@ class MyGame(arcade.Window):
 
     def winner_check(self):
         if self.player_attack_type == "Roche" and self.computer_attack_type == "Sciseaux":
-            self.player_victory = self.player_victory + 1
+            self.player_victory += 1
             self.winner = "Player"
         elif self.player_attack_type == "Papier" and self.computer_attack_type == "Roche":
-            self.player_victory = self.player_victory + 1
+            self.player_victory += 1
             self.winner = "Player"
         elif self.player_attack_type == "Sciseaux" and self.computer_attack_type == "Papier":
-            self.player_victory = self.player_victory + 1
+            self.player_victory += 1
             self.winner = "Player"
 
         elif self.player_attack_type == "Sciseaux" and self.computer_attack_type == "Roche":
-            self.computer_victory = self.computer_victory + 1
+            self.computer_victory += 1
             self.winner = "Ordi"
         elif self.player_attack_type == "Roche" and self.computer_attack_type == "Papier":
-            self.computer_victory = self.computer_victory + 1
+            self.computer_victory += 1
             self.winner = "Ordi"
         elif self.player_attack_type == "Papier" and self.computer_attack_type == "Sciseaux":
-            self.computer_victory = self.computer_victory + 1
+            self.computer_victory += 1
             self.winner = "Ordi"
 
         elif self.player_attack_type == self.computer_attack_type:
@@ -152,22 +152,22 @@ class MyGame(arcade.Window):
                 arcade.draw_text("L'ordinateur a gagné la partie :(", 200, 450, arcade.color.LIGHT_BLUE, 25)
                 arcade.draw_text('Appuyer sur Espace pour une nouvelle partie!', 120, 400, arcade.color.LIGHT_BLUE, 25)
 
-    def on_draw(self):
-        self.clear()
+    def affichage_permanente(self):
         arcade.set_background_color(arcade.color.DAVY_GREY)
         arcade.draw_text('Roche, Papier, Ciseaux', 100, 500, arcade.color.RED_DEVIL, 50)
         arcade.draw_text(f'Le pointage du joueur est {self.player_victory}', 100, 80, arcade.color.LIGHT_BLUE, 15)
         arcade.draw_text(f"Le pointage de l'ordinateur est {self.computer_victory}", 450, 80, arcade.color.LIGHT_BLUE,
                          15)
         for i in [1, 2, 3]:
-            arcade.draw_rect_outline(arcade.rect.XYWH(50 + i*80, 150, 60, 60), arcade.color.RED)
+            arcade.draw_rect_outline(arcade.rect.XYWH(50 + i * 80, 150, 60, 60), arcade.color.RED)
         arcade.draw_rect_outline(arcade.rect.XYWH(600, 150, 60, 60), arcade.color.RED)
 
+    def on_draw(self):
+        self.clear()
+        self.affichage_permanente()
         self.permanent_asset_list.draw()
-
         self.draw_deck()
         self.computer_deck()
-
         self.affichage_text()
 
     def on_update(self, delta_time):

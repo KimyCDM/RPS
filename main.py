@@ -104,8 +104,6 @@ class MyGame(arcade.Window):
         elif self.player_attack_type == self.computer_attack_type:
             self.winner = "Nule"
 
-        print(f"Vous {self.player_attack_type}")
-        print(f"L'ordi {self.computer_attack_type}")
         self.game_state = GameState.ROUND_DONE
 
     def draw_deck(self):

@@ -162,6 +162,21 @@ class MyGame(arcade.Window):
             arcade.draw_rect_outline(arcade.rect.XYWH(50 + i * 80, 150, 60, 60), arcade.color.RED)
         arcade.draw_rect_outline(arcade.rect.XYWH(600, 150, 60, 60), arcade.color.RED)
 
+    def reset_round(self):
+        self.computer_attack_type = "None"
+        self.player_attack_type = "None"
+        self.game_state = GameState.ROUND_ACTIVE
+        self.computer_attack_type = random.choice(self.list_computer_attack_type)
+
+    def reset_match(self):
+        self.player_victory = 0
+        self.computer_victory = 0
+        self.game_state = GameState.NOT_STARTED
+
+    def start_match(self):
+        self.game_state = GameState.ROUND_ACTIVE
+        self.computer_attack_type = random.choice(self.list_computer_attack_type)
+
     def on_draw(self):
         self.clear()
         self.affichage_permanente()
@@ -180,20 +195,14 @@ class MyGame(arcade.Window):
 
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.SPACE and self.game_state == GameState.NOT_STARTED:
-            self.game_state = GameState.ROUND_ACTIVE
-            self.computer_attack_type = random.choice(self.list_computer_attack_type)
+            self.start_match()
         elif key == arcade.key.SPACE and self.game_state == GameState.ROUND_DONE:
             if self.computer_victory == 3 or self.player_victory == 3:
                 self.game_state = GameState.GAME_OVER
             else:
-                self.computer_attack_type = "None"
-                self.player_attack_type = "None"
-                self.game_state = GameState.ROUND_ACTIVE
-                self.computer_attack_type = random.choice(self.list_computer_attack_type)
+                self.reset_round()
         elif key == arcade.key.SPACE and self.game_state == GameState.GAME_OVER:
-            self.player_victory = 0
-            self.computer_victory = 0
-            self.game_state = GameState.NOT_STARTED
+            self.reset_match()
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         if self.rock.collides_with_point((x, y)) and self.game_state == GameState.ROUND_ACTIVE:

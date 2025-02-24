@@ -78,6 +78,9 @@ class MyGame(arcade.Window):
         pass
 
     def winner_check(self):
+        """
+        Verifie le gagnant et ajoute un point au gagnant.
+        """
         if self.player_attack_type == "Roche" and self.computer_attack_type == "Sciseaux":
             self.player_victory += 1
             self.winner = "Player"
@@ -106,6 +109,9 @@ class MyGame(arcade.Window):
         self.game_state = GameState.ROUND_DONE
 
     def draw_deck(self):
+        """
+        Dessine les roches,papier,ciseaux du joueur.
+        """
         if self.game_state != GameState.ROUND_DONE:
             self.rock_list.draw()
             self.paper_list.draw()
@@ -119,6 +125,10 @@ class MyGame(arcade.Window):
                 self.scissors_list.draw()
 
     def computer_deck(self):
+        """
+        Dessine la choix de l'ordi
+        :return:
+        """
         if self.game_state == GameState.ROUND_DONE:
             if self.computer_attack_type == "Roche":
                 self.rock_list_computer.draw()
@@ -128,6 +138,10 @@ class MyGame(arcade.Window):
                 self.scissors_list_computer.draw()
 
     def affichage_text(self):
+        """
+        Affiche les textes.
+        :return:
+        """
         if self.game_state == GameState.NOT_STARTED:
             arcade.draw_text('Appuyer sur Espace pour commencer!', 150, 450, arcade.color.LIGHT_BLUE, 25)
         elif self.game_state == GameState.ROUND_ACTIVE:
@@ -153,6 +167,10 @@ class MyGame(arcade.Window):
                 arcade.draw_text('Appuyer sur Espace pour une nouvelle partie!', 120, 400, arcade.color.LIGHT_BLUE, 25)
 
     def affichage_permanente(self):
+        """
+        Affiche les affichage permanente.(Titre,pointage et rectangle)
+        :return:
+        """
         arcade.set_background_color(arcade.color.DAVY_GREY)
         arcade.draw_text('Roche, Papier, Ciseaux', 100, 500, arcade.color.RED_DEVIL, 50)
         arcade.draw_text(f'Le pointage du joueur est {self.player_victory}', 100, 80, arcade.color.LIGHT_BLUE, 15)
@@ -163,17 +181,29 @@ class MyGame(arcade.Window):
         arcade.draw_rect_outline(arcade.rect.XYWH(600, 150, 60, 60), arcade.color.RED)
 
     def reset_round(self):
+        """
+        Recommence le round.
+        :return:
+        """
         self.computer_attack_type = "None"
         self.player_attack_type = "None"
         self.game_state = GameState.ROUND_ACTIVE
         self.computer_attack_type = random.choice(self.list_computer_attack_type)
 
     def reset_match(self):
+        """
+        Recommence le match.
+        :return:
+        """
         self.player_victory = 0
         self.computer_victory = 0
         self.game_state = GameState.NOT_STARTED
 
     def start_match(self):
+        """
+        Commence le match et l'ordi choisi son attaque.
+        :return:
+        """
         self.game_state = GameState.ROUND_ACTIVE
         self.computer_attack_type = random.choice(self.list_computer_attack_type)
 
